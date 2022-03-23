@@ -20,10 +20,7 @@ const menu = {
         const appetizer = this.getRandomDishFromCourse('appetizers');
         const main = this.getRandomDishFromCourse('mains');
         const dessert = this.getRandomDishFromCourse('desserts');
-        const meal = [appetizer, main, dessert];
-        const mealPrice = meal.reduce(function (acc, course){
-            return acc += course.price;
-        }, 0);
+        const mealPrice = appetizer.price + main.price + dessert.price;
         console.log(`Tonight you will bw served with ${appetizer.name}, ${main.name}, and ${dessert.name} for total cost of $${mealPrice}. Enjoy!`)
     }
 }
