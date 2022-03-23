@@ -1,50 +1,51 @@
-var menu = {
+const menu = {
     courses: {
         appetizers: [],
         mains: [],
         desserts: []
     },
     addDishToCourse: function (courseName, dishName, dishPrice) {
-        var dish = {
+        const dish = {
             name: dishName,
             price: dishPrice,
         };
         return this.courses[courseName].push(dish);
     },
     getRandomDishFromCourse: function (courseName) {
-        var dishes = this.courses[courseName];
-        var randomDish = Math.floor(Math.random(0 * dishes.length));
-        return dishes[randomDish];
+        const dishes = this.courses[courseName];
+        const randomDishInd = Math.floor(Math.random()*dishes.length);
+        return dishes[randomDishInd];
     },
-    generateRandomMeal: function () {
-        var appetizer = menu.getRandomDishFromCourse('appetizers');
-        var main = menu.generateRandomMeal('mains');
-        var dessert = menu.generateRandomMeal('deserts');
-
-        var totalPrice = appetizer[2] + main[2] + dessert[2];
-        console.log(`Your total price is ${totalPrice}.`);
-        return totalPrice;
+    generateRandomMeal: function() {
+        const appetizer = this.getRandomDishFromCourse('appetizers');
+        const main = this.getRandomDishFromCourse('mains');
+        const dessert = this.getRandomDishFromCourse('desserts');
+        const meal = [appetizer, main, dessert];
+        const mealPrice = meal.reduce(function (acc, course){
+            return acc += course.price;
+        }, 0);
+        console.log(`Tonight you will bw served with ${appetizer.name}, ${main.name}, and ${dessert.name} for total cost of $${mealPrice}. Enjoy!`)
     }
 }
 
-menu.addDishToCourse('appetizers', 'Spinach Artichoke Dip', 3);
-menu.addDishToCourse('appetizers', 'Fish Dip', 3);
-menu.addDishToCourse('appetizers', 'Raw Vegetables and Hummus', 3);
+// * Adding courses to our menu
 
-menu.addDishToCourse('mains', 'Steak with Vegetables', 15);
-menu.addDishToCourse('mains', 'Pork and Mashed Potatoes', 15);
+menu.addDishToCourse('appetizers', 'Spinach Artichoke Dip', 4);
+menu.addDishToCourse('appetizers', 'Fish Dip', 3);
+menu.addDishToCourse('appetizers', 'Raw Vegetables and Hummus', 5);
+
+menu.addDishToCourse('mains', 'Steak with Vegetables', 25);
+menu.addDishToCourse('mains', 'Pork and Mashed Potatoes', 20);
 menu.addDishToCourse('mains', 'Pizza', 15);
 
-menu.addDishToCourse('desserts', 'Ice cream', 4);
-menu.addDishToCourse('desserts', 'Lava Cake', 4);
+menu.addDishToCourse('desserts', 'Ice cream', 5);
+menu.addDishToCourse('desserts', 'Lava Cake', 5);
 menu.addDishToCourse('desserts', 'Strawberry Cheescake', 4);
 
-// console.log(menu.courses.appetizers);
-// console.log(menu.courses.mains);
-// console.log(menu.courses.desserts);
-var meal = menu.generateRandomMeal();
+menu.generateRandomMeal();
 
-console.log('Your meal for today is: ', meal);
+
+
 
 
 
